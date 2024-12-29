@@ -39,6 +39,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(state.copyWith(
             status: AuthStatus.authError,
             errorMessage: "The account already exists for that email."));
+      } else {
+        emit(state.copyWith(
+            status: AuthStatus.authError, errorMessage: e.message.toString()));
       }
     } catch (e) {
       emit(state.copyWith(
@@ -60,6 +63,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(state.copyWith(
             status: AuthStatus.authError,
             errorMessage: "Wrong password provided for that user."));
+      } else {
+        emit(state.copyWith(
+            status: AuthStatus.authError, errorMessage: e.message.toString()));
       }
     } catch (e) {
       emit(state.copyWith(
@@ -123,6 +129,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(state.copyWith(
             status: AuthStatus.authError,
             errorMessage: "No user found for that email."));
+      } else {
+        emit(state.copyWith(
+            status: AuthStatus.authError, errorMessage: e.message.toString()));
       }
     } catch (e) {
       emit(state.copyWith(

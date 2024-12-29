@@ -1,11 +1,9 @@
 import 'package:calm/blocs/auth_bloc/auth_bloc.dart';
-import 'package:calm/blocs/profile_bloc/profile_bloc.dart';
 import 'package:calm/repositories/auth_repository.dart';
 import 'package:calm/repositories/user_repository.dart';
 import 'package:calm/screens/forgot_password_screen.dart';
 import 'package:calm/screens/home_screen.dart';
 import 'package:calm/screens/login_screen.dart';
-import 'package:calm/screens/profile_screen.dart';
 import 'package:calm/screens/signup_screen.dart';
 import 'package:calm/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +23,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthBloc(_authRepository),
         ),
-        BlocProvider(
-          create: (context) => ProfileBloc(_userRepository),
-        ),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -41,7 +36,6 @@ class MyApp extends StatelessWidget {
           LoginScreen.route: (context) => LoginScreen(),
           SignUpScreen.route: (context) => SignUpScreen(),
           HomeScreen.route: (context) => HomeScreen(),
-          ProfileScreen.route: (context) => ProfileScreen(),
           ForgotPassWordScreen.route: (context) => ForgotPassWordScreen(),
         },
       ),

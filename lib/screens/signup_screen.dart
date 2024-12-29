@@ -1,16 +1,17 @@
 import 'package:calm/blocs/auth_bloc/auth_bloc.dart';
 import 'package:calm/gen/assets.gen.dart';
-import 'package:calm/screens/home_screen.dart';
 import 'package:calm/utils/extentions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
   static const route = '/signup';
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController =
+      TextEditingController(text: "dev.rutudhvaj@gmail.com".debug);
+  final TextEditingController _passwordController =
+      TextEditingController(text: "wdDsCWa79s54t8E".debug);
   final TextEditingController _confirmPasswordController =
-      TextEditingController();
+      TextEditingController(text: "wdDsCWa79s54t8E".debug);
 
   SignUpScreen({super.key});
 
@@ -59,26 +60,7 @@ class SignUpScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Sign Up'),
       ),
-      body: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          if (state.status == AuthStatus.authenticated) {
-            Navigator.pop(context);
-            Navigator.pushReplacementNamed(context, HomeScreen.route);
-          } else if (state.status == AuthStatus.authError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.errorMessage)),
-            );
-          } else if (state.status == AuthStatus.authLoading) {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
-            );
-          }
-        },
+      body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           return SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),

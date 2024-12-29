@@ -13,7 +13,7 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController _emailController =
       TextEditingController(text: "dev.rutudhvaj@gmail.com".debug);
   final TextEditingController _passwordController =
-      TextEditingController(text: "123123123".debug);
+      TextEditingController(text: "wdDsCWa79s54t8E".debug);
 
   LoginScreen({super.key});
 
@@ -54,8 +54,10 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state.status == AuthStatus.authenticated) {
             Navigator.pop(context);
-            Navigator.pushReplacementNamed(context, HomeScreen.route);
+            Navigator.pushNamedAndRemoveUntil(
+                context, HomeScreen.route, (route) => false);
           } else if (state.status == AuthStatus.authError) {
+            Navigator.pop(context);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.errorMessage)),
             );

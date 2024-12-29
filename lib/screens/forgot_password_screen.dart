@@ -50,6 +50,7 @@ class ForgotPassWordScreen extends StatelessWidget {
               SnackBar(content: Text(state.errorMessage)),
             );
             Navigator.pop(context);
+            Navigator.pop(context);
           } else if (state.status == AuthStatus.authError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.errorMessage)),
