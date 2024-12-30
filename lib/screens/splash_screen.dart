@@ -52,20 +52,35 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.teal.shade100,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Calm",
-              style: TextStyle(
-                fontFamily: "Cookie",
-                fontSize: 70,
-                fontWeight: FontWeight.bold,
+      body: Container(
+        height: context.height,
+        width: context.width,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.white,
+              Colors.teal.shade100,
+              Colors.teal.shade300,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Calm",
+                style: TextStyle(
+                  fontFamily: "Cookie",
+                  fontSize: 70,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            Text("Find Your Calm, Anytime."),
-          ],
+              Text("Find Your Calm, Anytime."),
+            ],
+          ),
         ),
       ),
     );

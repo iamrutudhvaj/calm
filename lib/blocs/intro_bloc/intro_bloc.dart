@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:calm/blocs/intro_bloc/intro_event.dart';
 import 'package:calm/blocs/intro_bloc/intro_state.dart';
+import 'package:calm/utils/extentions.dart';
 import 'package:flutter/material.dart';
 
 class IntroBloc extends Bloc<IntroEvent, IntroState> {
@@ -13,7 +14,8 @@ class IntroBloc extends Bloc<IntroEvent, IntroState> {
   );
 
   void _updateIntroIndex(UpdateIntroIndex event, Emitter<IntroState> emit) {
-    pageController.jumpToPage(event.newIndex);
+    pageController.animateToPage(event.newIndex,
+        duration: 300.milliseconds, curve: Curves.linear);
     emit(state.copyWith(selectedIndex: event.newIndex));
   }
 }

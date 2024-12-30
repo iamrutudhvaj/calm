@@ -6,6 +6,7 @@ import 'package:calm/screens/login_screen.dart';
 import 'package:calm/utils/extentions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class IntroScreen extends StatelessWidget {
   static const String route = "/intro";
@@ -66,6 +67,14 @@ class IntroScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+                SmoothPageIndicator(
+                  controller: context.watch<IntroBloc>().pageController,
+                  count: 3,
+                  effect: ExpandingDotsEffect(
+                    activeDotColor: Colors.teal.shade900,
+                    dotColor: Colors.teal.shade100,
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -78,9 +87,17 @@ class IntroScreen extends StatelessWidget {
                             .add(UpdateIntroIndex(selectedIndex + 1));
                       },
                       icon: Icon(
-                          context.read<IntroBloc>().state.selectedIndex == 2
-                              ? Icons.check_rounded
-                              : Icons.arrow_right_alt_rounded),
+                        context.read<IntroBloc>().state.selectedIndex == 2
+                            ? Icons.check_rounded
+                            : Icons.arrow_right_alt_rounded,
+                      ),
+                      color: Colors.teal.shade900,
+                      style: OutlinedButton.styleFrom(
+                        shape: CircleBorder(),
+                        side: BorderSide(
+                          color: Colors.teal.shade900,
+                        ),
+                      ),
                     ),
                     20.widthBox
                   ],
