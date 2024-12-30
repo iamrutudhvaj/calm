@@ -30,3 +30,9 @@ extension SizedBoxExtension on num {
 extension DebugExtension on String {
   String? get debug => kDebugMode ? this : null;
 }
+
+// Extension on BuildContext to provide height and width of the screen
+extension ContextExtension on BuildContext {
+  double get height => MediaQuery.of(this).size.height;
+  double get width => MediaQuery.of(this).size.width;
+}

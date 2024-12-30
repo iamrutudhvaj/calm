@@ -1,8 +1,10 @@
 import 'package:calm/blocs/auth_bloc/auth_bloc.dart';
+import 'package:calm/blocs/intro_bloc/intro_bloc.dart';
+import 'package:calm/blocs/intro_bloc/intro_bloc.dart';
 import 'package:calm/repositories/auth_repository.dart';
-import 'package:calm/repositories/user_repository.dart';
 import 'package:calm/screens/forgot_password_screen.dart';
 import 'package:calm/screens/home_screen.dart';
+import 'package:calm/screens/intro_screen.dart';
 import 'package:calm/screens/login_screen.dart';
 import 'package:calm/screens/signup_screen.dart';
 import 'package:calm/screens/splash_screen.dart';
@@ -12,7 +14,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MyApp extends StatelessWidget {
   final AuthRepository _authRepository = AuthRepository();
-  final UserRepository _userRepository = UserRepository();
 
   MyApp({super.key});
 
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc(_authRepository),
+        ),
+        BlocProvider(
+          create: (context) => IntroBloc(),
         ),
       ],
       child: MaterialApp(
@@ -37,6 +41,7 @@ class MyApp extends StatelessWidget {
           SignUpScreen.route: (context) => SignUpScreen(),
           HomeScreen.route: (context) => HomeScreen(),
           ForgotPassWordScreen.route: (context) => ForgotPassWordScreen(),
+          IntroScreen.route: (context) => IntroScreen(),
         },
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:calm/blocs/auth_bloc/auth_bloc.dart';
 import 'package:calm/screens/home_screen.dart';
+import 'package:calm/screens/intro_screen.dart';
 import 'package:calm/screens/login_screen.dart';
+import 'package:calm/services/shared_preference_service.dart';
 import 'package:calm/utils/extentions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +23,16 @@ class _SplashScreenState extends State<SplashScreen> {
       2.seconds,
       () {
         if (mounted) {
+          if (SharedPreferenceService.getBool(
+                  SharedPreferenceKeys.isFirstTime) ==
+              null) {
+            Navigator.pushReplacementNamed(context, IntroScreen.route);
+            SharedPreferenceService.setBool(
+              SharedPreferenceKeys.isFirstTime,
+              false,
+            );
+            return;
+          }
           var state = context.read<AuthBloc>().state;
           if (state.status == AuthStatus.authenticated) {
             Navigator.pushReplacementNamed(context, HomeScreen.route);
