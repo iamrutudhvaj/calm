@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:calm/blocs/intro_bloc/intro_event.dart';
-import 'package:calm/blocs/intro_bloc/intro_state.dart';
+import 'package:calm/module/introduction/intro_bloc/intro_event.dart';
+import 'package:calm/module/introduction/intro_bloc/intro_state.dart';
 import 'package:calm/utils/extentions.dart';
 import 'package:flutter/material.dart';
 

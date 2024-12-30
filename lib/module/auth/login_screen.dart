@@ -1,8 +1,8 @@
-import 'package:calm/blocs/auth_bloc/auth_bloc.dart';
+import 'package:calm/module/auth/auth_bloc/auth_bloc.dart';
 import 'package:calm/gen/assets.gen.dart';
-import 'package:calm/screens/forgot_password_screen.dart';
-import 'package:calm/screens/home_screen.dart';
-import 'package:calm/screens/signup_screen.dart';
+import 'package:calm/module/auth/forgot_password_screen.dart';
+import 'package:calm/module/home/home_screen.dart';
+import 'package:calm/module/auth/signup_screen.dart';
 import 'package:calm/utils/extentions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

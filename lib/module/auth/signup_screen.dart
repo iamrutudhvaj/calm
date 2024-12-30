@@ -1,4 +1,4 @@
-import 'package:calm/blocs/auth_bloc/auth_bloc.dart';
+import 'package:calm/module/auth/auth_bloc/auth_bloc.dart';
 import 'package:calm/gen/assets.gen.dart';
 import 'package:calm/utils/extentions.dart';
 import 'package:flutter/material.dart';
