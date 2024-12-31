@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:calm/repositories/auth_repository.dart';
+import 'package:calm/repositories/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -8,8 +9,9 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
+  final UserRepository _userRepository;
 
-  AuthBloc(this._authRepository) : super(AuthState()) {
+  AuthBloc(this._authRepository, this._userRepository) : super(AuthState()) {
     on<SignUpRequested>(_signUp);
 
     on<LoginRequested>(_login);
@@ -29,6 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(status: AuthStatus.authLoading));
     try {
       await _authRepository.signUp(event.email, event.password);
+      await createUserIfNotExist();
       emit(state.copyWith(status: AuthStatus.authenticated));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -78,6 +81,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(status: AuthStatus.authLoading));
     try {
       await _authRepository.signInWithGoogle();
+      await createUserIfNotExist();
       emit(state.copyWith(status: AuthStatus.authenticated));
     } catch (e) {
       emit(state.copyWith(
@@ -136,6 +140,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(state.copyWith(
           status: AuthStatus.authError, errorMessage: e.toString()));
+    }
+  }
+
+  Future<void> createUserIfNotExist() async {
+    final user = await _authRepository.user;
+    if (user != null) {
+      if (!(await _userRepository.doesUserExist(user.uid))) {
+        await _userRepository.createUser(uid: user.uid, email: user.email!);
+      }
     }
   }
 }

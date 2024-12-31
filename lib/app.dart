@@ -1,19 +1,21 @@
 import 'package:calm/module/auth/auth_bloc/auth_bloc.dart';
-import 'package:calm/module/introduction/intro_bloc/intro_bloc.dart';
-import 'package:calm/module/introduction/intro_bloc/intro_bloc.dart';
-import 'package:calm/repositories/auth_repository.dart';
 import 'package:calm/module/auth/forgot_password_screen.dart';
-import 'package:calm/module/home/home_screen.dart';
-import 'package:calm/module/introduction/intro_screen.dart';
 import 'package:calm/module/auth/login_screen.dart';
 import 'package:calm/module/auth/signup_screen.dart';
 import 'package:calm/module/auth/splash_screen.dart';
+import 'package:calm/module/home/home_bloc/home_bloc.dart';
+import 'package:calm/module/home/home_screen.dart';
+import 'package:calm/module/introduction/intro_bloc/intro_bloc.dart';
+import 'package:calm/module/introduction/intro_screen.dart';
+import 'package:calm/repositories/auth_repository.dart';
+import 'package:calm/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyApp extends StatelessWidget {
   final AuthRepository _authRepository = AuthRepository();
+  final UserRepository _userRepository = UserRepository();
 
   MyApp({super.key});
 
@@ -22,7 +24,15 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthBloc(_authRepository),
+          create: (context) => AuthBloc(
+            _authRepository,
+            _userRepository,
+          ),
+        ),
+        BlocProvider(
+          create: (context) => HomeBloc(
+            _userRepository,
+          ),
         ),
         BlocProvider(
           create: (context) => IntroBloc(),
