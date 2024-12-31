@@ -1,3 +1,4 @@
+import 'package:calm/gen/assets.gen.dart';
 import 'package:calm/module/auth/auth_bloc/auth_bloc.dart';
 import 'package:calm/module/auth/login_screen.dart';
 import 'package:calm/module/home/home_bloc/home_bloc.dart';
@@ -161,6 +162,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 100),
+              child: Assets.images.mindfulness.svg(height: 200),
+            ),
+            Text(
+              "Mark today's meditation completed",
+              style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            16.box,
+            FilledButton.icon(
+              onPressed: () {
+                var now = DateTime.now();
+                context.read<HomeBloc>().add(
+                    ClickDate(DateTime(now.year, now.month, now.day), true));
+              },
+              label: Text("Done"),
+              icon: Icon(Icons.check),
+            )
           ],
         ),
       ),
@@ -183,8 +203,9 @@ class _DialogState extends State<_Dialog> {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return AlertDialog(
-          title: Text('Date Selected'),
-          content: Text(widget.date.toString()),
+          title: Text(
+              'Date: ${widget.date.day}/${widget.date.month}/${widget.date.year}'),
+          content: Text("Do you want to keep this track record?"),
           actions: [
             TextButton.icon(
               style: TextButton.styleFrom(

@@ -19,13 +19,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   void _clickDate(ClickDate event, Emitter<HomeState> emit) {
     List data = [];
     if (event.keep) {
-      data = (state.streak..add(event.dateTime.toString())).toSet().toList();
+      if (!state.streak.contains(event.dateTime.toString())) {
+        data = (state.streak..add(event.dateTime.toString()));
+      } else {
+        data = state.streak;
+      }
     } else {
       data = state.streak;
       data.remove(event.dateTime.toString());
     }
-
-    _userRepository.updateStreak(FirebaseAuth.instance.currentUser!.uid, data);
+    _userRepository.updateStreak(
+        FirebaseAuth.instance.currentUser!.uid, data.toSet().toList());
   }
 
   // get stream of user data from UserRepository
